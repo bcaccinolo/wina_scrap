@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^1.14.0"
+    "pg": "^7.11.0",
+    "pg-hstore": "^2.3.2",
+    "puppeteer": "^1.14.0",
+    "sequelize": "^5.8.6"
   }
 }
