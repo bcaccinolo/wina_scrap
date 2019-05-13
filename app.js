@@ -34,9 +34,11 @@ puppeteer.launch({headless:true}).then(async browser => {
   match = await page.evaluate(() => {
             match = {};
 
-            // Match block selector
+            // Match List selector
             section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section.event-list";
             list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
+
+            // Match selector
             elem_selector = list_selector + " > div:nth-of-type(8)";
 
             // GET THE LINK
