@@ -1,78 +1,96 @@
 const puppeteer = require('puppeteer');
 
-// const selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section " +
-//                  "> div:nth-child(2) > div";
-
-const section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section";
-
 puppeteer.launch({headless:true}).then(async browser => {
   const page = await browser.newPage();
-  await page.goto('https://www.winamax.fr/paris-sportifs');
+  const viewPort={width:800, height:3000};
+  await page.setViewport(viewPort);
 
-  // SECTION
-  const section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section.event-list";
-  // section = await page.$(section_selector);
-  // await section.screenshot({path: 'screenshot0.png'});
+  // await page.goto('https://www.winamax.fr/paris-sportifs');
+  // await page.goto('https://www.winamax.fr/paris-sportifs/calendar/4');
+  await page.goto('https://www.winamax.fr/paris-sportifs/calendar/12');
 
   // LIST
-  const list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
+  // const section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section.event-list";
+  // const list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
+  // selector = list_selector + " > div";
+  // r = document.querySelectorAll(selector);
+  // r.length;
+
   // list = await page.$(list_selector);
   // await list.screenshot({path: 'screenshot1.png'});
 
-  // ELEMENT
-  const elem_selector = list_selector + " > div:nth-of-type(8)";
+  // MATCHES
   // elem = await page.$(elem_selector);
   // await elem.screenshot({path: 'screenshot2.png'});
 
   // LINK
-  const link_selector = elem_selector + " > div:first-child > a";
+  // const link_selector = elem_selector + " > div:first-child > a";
   // console.log(link_selector);
   // elem = await page.$(link_selector);
   // await elem.screenshot({path: 'out.png'});
 
+  // Wait for the page to be loaded
+  section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section.event-list";
+  list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
+  await page.waitForSelector(list_selector).then(() => console.log("coucou le monde"));
 
   match = await page.evaluate(() => {
-            match = {};
 
             // Match List selector
             section_selector = "#app-inner > div > div:nth-child(1) > span > div > div:nth-child(2) > section.event-list";
             list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
 
-            // Match selector
-            elem_selector = list_selector + " > div:nth-of-type(8)";
+            // All Matches selector
+            match_selector = list_selector + " > div";
+            nodes = document.querySelectorAll(match_selector);
 
-            // GET THE LINK
-            link_selector = elem_selector + " > div:first-child > a";
-            node = document.querySelector(link_selector);
-            match.link = node.href;
+            res = [...nodes].map(node => {
 
-            // PLAYERS
-            info_selector = link_selector + " > div > div:first-child";
-            players_selector = info_selector + " > div:first-child"
-            node = document.querySelector(players_selector);
-            match.players = node.textContent;
+              try {
+                match = {};
 
-            // DATE
-            date_loc_selector = info_selector + " > div:last-child";
-            date_selector = date_loc_selector + " > span:first-child";
-            node = document.querySelector(date_selector);
-            match.date = node.textContent;
+                // GET THE LINK
+                link_selector = "div:first-child > a";
+                node = node.querySelector(link_selector);
+                match.link = node.href;
 
-            // LOCATION & TOURNAMENT
-            date_loc_selector = info_selector + " > div:last-child > span";
-            nodes = document.querySelectorAll(date_loc_selector);
-            nodes_ar = [...nodes];
-            nodes_ar.shift();
-            match.location = nodes_ar.map(node => node.textContent);
+                // PLAYERS
+                info_selector = link_selector + " > div > div:first-child";
+                players_selector = info_selector + " > div:first-child"
+                player_node = node.querySelector(players_selector);
+                match.players = player_node.textContent;
 
-            // GET THE ODDS
-            buttons_selector = link_selector + " > div > div:last-child > div > div";
-            nodes = document.querySelectorAll(buttons_selector);
-            odds = [...nodes].map(el => el.querySelector('div > button > span').textContent);
-            match.odds = odds;
+                // DATE
+                date_loc_selector = info_selector + " > div:last-child";
+                date_selector = date_loc_selector + " > span:first-child";
+                date_node = node.querySelector(date_selector);
+                match.date = date_node.textContent;
 
-            return match;
+                // LOCATION & TOURNAMENT
+                date_loc_selector = info_selector + " > div:last-child > span";
+                span_nodes = node.querySelectorAll(date_loc_selector);
+                nodes_ar = [...span_nodes];
+                nodes_ar.shift();
+                match.location = nodes_ar.map(node => node.textContent);
+
+                // GET THE ODDS
+                buttons_selector = link_selector + " > div > div:last-child > div > div";
+                button_nodes = node.querySelectorAll(buttons_selector);
+                odds = [...button_nodes].map(el => el.querySelector('div > button > span').textContent);
+                match.odds = odds;
+
+                return match;
+              } catch(error) {
+                return "undefined";
+              }
+
+            })
+
+            res = res.filter(e => { return e !== "undefined" });
+
+            return res;
   });
+
   console.log(match);
 
   await browser.close();
