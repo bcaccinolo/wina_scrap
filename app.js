@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 
-  // await page.goto('https://www.winamax.fr/paris-sportifs');
+// const url = 'https://www.winamax.fr/paris-sportifs');
 const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
-  // await page.goto('https://www.winamax.fr/paris-sportifs/calendar/12');
-  // await page.goto('https://www.google.fr');
+// const url = 'https://www.winamax.fr/paris-sportifs/calendar/12');
+// const url = 'https://www.google.fr');
 
 puppeteer.launch({headless:true}).then(async browser => {
   const page = await browser.newPage();
@@ -46,9 +46,14 @@ match = await page.evaluate(async () => {
 
       // PLAYERS
       info_selector = link_selector + " > div > div:first-child";
-      players_selector = info_selector + " > div:first-child"
+      players_selector = info_selector + " > div:first-child";
       player_node = node.querySelector(players_selector);
       match.players = player_node.textContent;
+
+      // ICON
+      icon_selector = players_selector + " > svg";
+      icon_node = node.querySelector(icon_selector);
+      match.icon = icon_node.classList[1]
 
       // DATE
       date_loc_selector = info_selector + " > div:last-child";
@@ -63,13 +68,11 @@ match = await page.evaluate(async () => {
       nodes_ar.shift();
       match.location = nodes_ar.map(node => node.textContent);
 
-      // GET THE ODDS
+      // ODDS
       buttons_selector = link_selector + " > div > div:last-child > div > div";
       button_nodes = node.querySelectorAll(buttons_selector);
       odds = [...button_nodes].map(el => el.querySelector('div > button > span').textContent);
       match.odds = odds;
-
-      console.log(match);
 
       return match;
     } catch(error) {
