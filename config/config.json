@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "winascrap",
+    "password": "winascrap",
+    "database": "winascrap",
+    "host": "winascrap.db.docker",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
