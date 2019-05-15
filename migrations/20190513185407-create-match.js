@@ -11,7 +11,10 @@ module.exports = {
       link: {
         type: Sequelize.STRING
       },
-      players: {
+      player1: {
+        type: Sequelize.STRING
+      },
+      player2: {
         type: Sequelize.STRING
       },
       date:  {

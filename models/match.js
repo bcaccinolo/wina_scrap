@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Match = sequelize.define('Match', {
     link: DataTypes.STRING,
-    players: DataTypes.STRING,
+    player1: DataTypes.STRING,
+    player2: DataTypes.STRING,
     date: DataTypes.STRING,
     location: DataTypes.STRING,
   }, {});

@@ -1,13 +1,4 @@
-// var DB = require('./models/index');
-
-match = {
-  link: 'https://www.winamax.fr/paris-sportifs/match/15729380',
-  players: 'Dijon - Le Mans',
-  icon: 'sport-icon-2',
-  date: '14/05 20h00',
-  location: [ 'France', 'Jeep Elite' ],
-  odds: [ '1,40', '2,80' ]
-}
+var DB = require('./models/index');
 
 // Add keys 'player1' and 'player2'
 // in the Match object
@@ -48,23 +39,32 @@ function extractDateInfo(date_str) {
   return {day: ar[0], month: ar[1], year: year, hours: ar[2], minutes: ar[3]};
 }
 
-console.log(match);
 
+match = {
+  link: 'https://www.winamax.fr/paris-sportifs/match/15729380',
+  players: 'Dijon - Le Mans',
+  icon: 'sport-icon-2',
+  date: '14/05 20h00',
+  location: [ 'France', 'Jeep Elite' ],
+  odds: [ '1,40', '2,80' ]
+}
+
+console.log(match);
 match = splitPlayers(match);
 match = parseDate(match);
 console.log(match);
 
 
-// DB["Match"].create({
-//   link: 'link to the page of the match',
-//   player1: "Djoko",
-//   player2: "Nadal",
-//   date: "13/02 15:25",
-//   location: "Rome - Liga",
-//   // Timestamps
-//   createdAt: DB.sequelize.NOW,
-//   updatedAt: DB.sequelize.NOW,
-// }, {}).then(m => {
-//                     console.log("saved");
-//                     console.log(m.sequelize.close().then(n => console.log("Connection closed!")))
-//                 });
+DB["Match"].create({
+  link: match.link,
+  player1: match.player1,
+  player2: match.player2,
+  date: "13/02 15:25",
+  location: "Rome - Liga",
+  // Timestamps
+  createdAt: DB.sequelize.NOW,
+  updatedAt: DB.sequelize.NOW,
+}, {}).then(m => {
+                    console.log("saved");
+                    console.log(m.sequelize.close().then(n => console.log("Connection closed!")))
+                });
