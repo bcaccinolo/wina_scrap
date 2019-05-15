@@ -36,7 +36,44 @@ function extractDateInfo(date_str) {
   ar = date1_ar.concat(date2_ar);
   ar = ar.map(e => Number.parseInt(e))
   year = new Date(Date.now()).getFullYear();
-  return {day: ar[0], month: ar[1], year: year, hours: ar[2], minutes: ar[3]};
+  return {
+    day: ar[0],
+    month: ar[1],
+    year: year,
+    hours: ar[2],
+    minutes: ar[3]
+  };
+}
+
+// Get the sport name in regard of the icon name
+function setSportName(match) {
+  icons_sports = {
+    "sport-icon-1": "football",
+    'sport-icon-2': "basketball",
+    'sport-icon-1': "football",
+    'sport-icon-2': "basketball",
+    'sport-icon-5': "tennis",
+    'sport-icon-12': "rugby union",
+    'sport-icon-4': "ice hockey",
+    'sport-icon-6': "handball",
+    'sport-icon-23': "volleyball",
+    'sport-icon-3': "baseball",
+    'sport-icon-17': "cycling",
+    'sport-icon-16': "american football",
+    'sport-icon-34': "beach volley",
+    'sport-icon-10': "boxing",
+    'sport-icon-9': "golf",
+    'sport-icon-112': "rugby league",
+    'sport-icon-212': "rugby 7s"
+  }
+
+  if(icons_sports.hasOwnProperty(match.icon)) {
+    match.sport = icons_sports[match.icon];
+  } else {
+    match.sport = 'undefined';
+  }
+
+  return match
 }
 
 match = {
@@ -44,17 +81,19 @@ match = {
   players: 'Dijon - Le Mans',
   icon: 'sport-icon-2',
   date: '14/05 20h00',
-  location: [ 'France', 'Jeep Elite' ],
-  odds: [ '1,40', '2,80' ]
+  location: ['France', 'Jeep Elite'],
+  odds: ['1,40', '2,80']
 }
 
 console.log(match);
 match = splitPlayers(match);
 match = parseDate(match);
+match = setSportName(match)
 console.log(match);
 
 
 DB["Match"].create({
+  sport: match.sport,
   link: match.link,
   player1: match.player1,
   player2: match.player2,
@@ -65,6 +104,6 @@ DB["Match"].create({
   createdAt: DB.sequelize.NOW,
   updatedAt: DB.sequelize.NOW,
 }, {}).then(m => {
-                    console.log("saved");
-                    console.log(m.sequelize.close().then(n => console.log("Connection closed!")))
-                });
+  console.log("saved");
+  console.log(m.sequelize.close().then(n => console.log("Connection closed!")))
+});

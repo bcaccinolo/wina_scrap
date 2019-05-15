@@ -11,16 +11,13 @@
 - ✅can save existing data in beta mode
 - ✅extract players & parse date
 - ✅save player one and player two
+- ✅save the date
+- ✅get the sport name in regard of the icon
 
-- 🔥save the date
+- has_many :odds (to get the history)
 
-- get the sport name in regard of the icon
+- connect do the scrapper
 
-- parse the date correctly
-
-- detect odds < 1,2
-
-- what to do with it ? :P
 
 ## note
 https://github.com/GoogleChrome/puppeteer
