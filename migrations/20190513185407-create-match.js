@@ -11,6 +11,15 @@ module.exports = {
       link: {
         type: Sequelize.STRING
       },
+      players: {
+        type: Sequelize.STRING
+      },
+      date:  {
+        type: Sequelize.STRING
+      },
+      location:  {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

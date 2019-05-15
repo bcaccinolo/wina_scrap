@@ -6,12 +6,18 @@
 ## Todo
 
 - ✅get info for one match
-
 - ✅iterate on the list of match - just get the interesting ones
-
 - ✅get the icon index to get the sport name
+- ✅can save existing data in beta mode
+- ✅extract players & parse date
 
-- 🔥 storage
+- 🔥save player one and player two
+
+- save the date
+
+- get the sport name in regard of the icon
+
+- parse the date correctly
 
 - detect odds < 1,2
 
