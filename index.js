@@ -39,7 +39,6 @@ function extractDateInfo(date_str) {
   return {day: ar[0], month: ar[1], year: year, hours: ar[2], minutes: ar[3]};
 }
 
-
 match = {
   link: 'https://www.winamax.fr/paris-sportifs/match/15729380',
   players: 'Dijon - Le Mans',
@@ -59,8 +58,9 @@ DB["Match"].create({
   link: match.link,
   player1: match.player1,
   player2: match.player2,
-  date: "13/02 15:25",
-  location: "Rome - Liga",
+  date: match.date,
+  parsedDate: match.parsed_date,
+  location: match.location.join(" - "),
   // Timestamps
   createdAt: DB.sequelize.NOW,
   updatedAt: DB.sequelize.NOW,

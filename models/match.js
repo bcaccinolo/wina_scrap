@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     player1: DataTypes.STRING,
     player2: DataTypes.STRING,
     date: DataTypes.STRING,
+    parsedDate: DataTypes.DATE,
     location: DataTypes.STRING,
   }, {});
   Match.associate = function(models) {

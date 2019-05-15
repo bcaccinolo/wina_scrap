@@ -20,6 +20,9 @@ module.exports = {
       date:  {
         type: Sequelize.STRING
       },
+      parsedDate: {
+        type: Sequelize.DATE
+      },
       location:  {
         type: Sequelize.STRING
       },
