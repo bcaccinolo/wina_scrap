@@ -24,8 +24,8 @@
 - ✅do not show the past ones
 - ✅highlight odds under 1.20
 - ✅display le delta des cotes
-- 🔥highlight big deltas
-- add a link to google to find the sofascore page
+- ✅highlight big deltas
+- ✅add a link to google to find the sofascore page
 
 - later: has_many :odds (to get the history)
 
