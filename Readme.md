@@ -14,6 +14,10 @@
 - ✅save the date
 - ✅get the sport name in regard of the icon
 
+- ✅add odds in the match table (in float and in string to keep the raw data)
+
+- do not insert match with 3 odds
+
 - has_many :odds (to get the history)
 
 - connect do the scrapper

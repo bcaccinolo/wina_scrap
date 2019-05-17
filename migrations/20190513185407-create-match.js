@@ -20,14 +20,26 @@ module.exports = {
       player2: {
         type: Sequelize.STRING
       },
-      date:  {
+      dateStr:  {
         type: Sequelize.STRING
       },
-      parsedDate: {
+      date: {
         type: Sequelize.DATE
       },
       location:  {
         type: Sequelize.STRING
+      },
+      odd1Str:  {
+        type: Sequelize.STRING
+      },
+      odd2Str:  {
+        type: Sequelize.STRING
+      },
+      odd1:  {
+        type: Sequelize.FLOAT
+      },
+      odd2:  {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,

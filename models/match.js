@@ -4,10 +4,14 @@ module.exports = (sequelize, DataTypes) => {
     link: DataTypes.STRING,
     player1: DataTypes.STRING,
     player2: DataTypes.STRING,
-    date: DataTypes.STRING,
-    parsedDate: DataTypes.DATE,
+    dateStr: DataTypes.STRING,
+    date: DataTypes.DATE,
     location: DataTypes.STRING,
     sport: DataTypes.STRING,
+    odd1: DataTypes.FLOAT,
+    odd2: DataTypes.FLOAT,
+    odd1Str: DataTypes.STRING,
+    odd2Str: DataTypes.STRING,
   }, {});
   Match.associate = function(models) {
     // associations can be defined here

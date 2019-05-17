@@ -76,6 +76,21 @@ function setSportName(match) {
   return match
 }
 
+// Concert string odds to float
+function convertOdds(match) {
+  odds_str = match.odds;
+  odds = odds_str.map(e => parseFloat(e.replace(/,/, '.')));
+
+  match.odd1_str = odds_str[0];
+  match.odd2_str = odds_str[1];
+
+  match.odd1 = odds[0];
+  match.odd2 = odds[1];
+
+  return match;
+}
+
+// EXAMPLE ZONE
 match = {
   link: 'https://www.winamax.fr/paris-sportifs/match/15729380',
   players: 'Dijon - Le Mans',
@@ -89,6 +104,7 @@ console.log(match);
 match = splitPlayers(match);
 match = parseDate(match);
 match = setSportName(match)
+match = convertOdds(match);
 console.log(match);
 
 
@@ -97,9 +113,18 @@ DB["Match"].create({
   link: match.link,
   player1: match.player1,
   player2: match.player2,
-  date: match.date,
-  parsedDate: match.parsed_date,
   location: match.location.join(" - "),
+
+  // Date
+  dateStr: match.date,
+  date: match.parsed_date,
+
+  // Odds
+  odd1: match.odd1,
+  odd2: match.odd2,
+  odd1Str: match.odd1_str,
+  odd2Str: match.odd2_str,
+
   // Timestamps
   createdAt: DB.sequelize.NOW,
   updatedAt: DB.sequelize.NOW,
