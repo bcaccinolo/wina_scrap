@@ -19,8 +19,11 @@
 - ✅Update if existing
 - ✅Do not insert match with 3 odds
 - ✅server express.js
-
-- react listing
+- ✅react listing 🎉
+- ✅sort by date in the listing
+- ✅do not show the past ones
+- ✅highlight odds under 1.20
+- display le delta des cotes
 
 - later: has_many :odds (to get the history)
 
@@ -35,9 +38,3 @@ docker run --name pg.js \
 -e POSTGRES_PASSWORD=winascrap \
 -e DNSDOCK_ALIAS=winascrap.db.docker \
 postgres
-
-
-
-
-
-
