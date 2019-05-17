@@ -1,11 +1,45 @@
 const puppeteer = require('puppeteer');
-const DB = require('./models/index');
+const google = require('google');
+
 const utils = require('./utils');
 
-// const url = 'https://www.winamax.fr/paris-sportifs');
-const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
-// const url = 'https://www.winamax.fr/paris-sportifs/calendar/12');
-// const url = 'https://www.google.fr');
+const player1 = "Chorale Roanne",
+      player2 = "Vichy Clermont",
+      sport = "basket",
+      source = 'matchendirect',
+      month = 'mai',
+      year = '2019'
+
+const q = `${player1} ${player2} ${sport} ${source} ${month} ${year}`
+
+// encapsulating google call
+let google_async = (query) => {
+  return new Promise(
+    (resolve, reject) => {
+      google(query, function (err, res){
+        if (err) reject(error);
+        resolve(res.links);
+      })
+    }
+  )
+}
+
+(async () => {
+  var results = await google_async(q)
+  const url = results[0].link
+  console.log(url);
+
+  const browser = await puppeteer.launch({headless:true});
+  const page = await browser.newPage();
+  const viewPort = {width:800, height:800};
+  await page.setViewport(viewPort);
+
+  await page.goto(url);
+
+  await page.screenshot({path: 'screenshot.png'});
+
+  await browser.close();
+})();
 
 // Main function
 (async function() {
@@ -22,8 +56,8 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
     if (consoleMessageObject._type !== 'warning') {
         console.log(consoleMessageObject._text)
     }
-  });
 
+  });
   await page.goto(url);
 
   // Wait for the page to be loaded with the matches list content
@@ -37,26 +71,7 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
 
   console.log(matches);
 
-  // *****************************************************************=
-  // Saving all matches in the DB
-  // *****************************************************************=
-  // matches.map(async (match) => {
-  //   // Do not insert matches with more than 2 possibles results (example: soccer)
-  //   if (match.odds.length > 2) { return }
-
-  //   const matchModel = await DB["Match"].findOne({ where: { link: match.link } });
-
-  //   if (matchModel === null) {
-  //     await DB["Match"].create(utils.buildMatchModel(match), {});
-  //   } else {
-  //     await matchModel.update(utils.buildMatchModel(match), {});
-  //   }
- // })
-
-  // No closing cause of the async
-  // await DB.sequelize.close();
-  console.log("Connection closed!");
-})()
+}) // ()
 
 
 
