@@ -20,7 +20,7 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
   // For debug reasons: console.log in the 'page.evaluate'
   page.on('console', consoleMessageObject => function (consoleMessageObject) {
     if (consoleMessageObject._type !== 'warning') {
-        console.debug(consoleMessageObject._text)
+        console.log(consoleMessageObject._text)
     }
   });
 
@@ -31,7 +31,7 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
   const list_selector = section_selector + ' > div:nth-of-type(2) > div:first-child > div:first-child > div:first-child';
   await page.waitForSelector(list_selector).then(() => console.log("Match list loaded"));
 
-  matches = await page.evaluate(utils.extractMatchesDataFromPage);
+  const matches = await page.evaluate(utils.extractMatchesDataFromPage);
 
   await browser.close();
 
@@ -44,10 +44,10 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
     // Do not insert matches with more than 2 possibles results (example: soccer)
     if (match.odds.length > 2) { return }
 
-    matchModel = await DB["Match"].findOne({ where: { link: match.link } });
+    const matchModel = await DB["Match"].findOne({ where: { link: match.link } });
 
     if (matchModel === null) {
-      matchModel = await DB["Match"].create(utils.buildMatchModel(match), {});
+      await DB["Match"].create(utils.buildMatchModel(match), {});
     } else {
       await matchModel.update(utils.buildMatchModel(match), {});
     }
