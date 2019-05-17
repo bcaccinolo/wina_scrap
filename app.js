@@ -41,6 +41,10 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
   // Saving all matches in the DB
   // *****************************************************************=
   matches.map(async (match) => {
+
+    // Do not insert matches with more than 2 possibles results (example: soccer)
+    if (match.odds.length > 2) { return }
+
     matchModel = await DB["Match"].findOne({ where: { link: match.link } });
 
     if (matchModel === null) {

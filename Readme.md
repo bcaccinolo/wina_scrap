@@ -17,8 +17,7 @@
 - ✅Structuring a little bit of code
 - ✅scrap and insert
 - ✅update if existing
-
-- do not insert match with 3 odds
+- ✅do not insert match with 3 odds
 
 - has_many :odds (to get the history)
 
