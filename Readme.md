@@ -13,16 +13,15 @@
 - ✅save player one and player two
 - ✅save the date
 - ✅get the sport name in regard of the icon
-- ✅add odds in the match table (in float and in string to keep the raw data)
+- ✅Add odds in the match table (in float and in string to keep the raw data)
 - ✅Structuring a little bit of code
-- ✅scrap and insert
-- ✅update if existing
-- ✅do not insert match with 3 odds
+- ✅Scrap and insert
+- ✅Update if existing
+- ✅Do not insert match with 3 odds
 
-- has_many :odds (to get the history)
+- 🔥server express.js
 
-- connect do the scrapper
-
+- later: has_many :odds (to get the history)
 
 ## note
 https://github.com/GoogleChrome/puppeteer
