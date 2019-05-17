@@ -18,8 +18,9 @@
 - ✅Scrap and insert
 - ✅Update if existing
 - ✅Do not insert match with 3 odds
+- ✅server express.js
 
-- 🔥server express.js
+- react listing
 
 - later: has_many :odds (to get the history)
 
