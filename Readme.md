@@ -15,8 +15,8 @@
 - ✅get the sport name in regard of the icon
 - ✅add odds in the match table (in float and in string to keep the raw data)
 - ✅Structuring a little bit of code
-
 - ✅scrap and insert
+- ✅update if existing
 
 - do not insert match with 3 odds
 

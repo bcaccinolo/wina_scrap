@@ -41,8 +41,15 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
   // Saving all matches in the DB
   // *****************************************************************=
   matches.map(async (match) => {
-    matchModel = await DB["Match"].create(utils.buildMatchModel(match), {});
-    await matchModel.sequelize.close();
+    matchModel = await DB["Match"].findOne({ where: { link: match.link } });
+
+    if (matchModel === null) {
+      matchModel = await DB["Match"].create(utils.buildMatchModel(match), {});
+    } else {
+      await matchModel.update(utils.buildMatchModel(match), {});
+    }
+
+    await DB.sequelize.close();
     console.log("Connection closed!");
   })
 
