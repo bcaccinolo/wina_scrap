@@ -41,7 +41,6 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
   // Saving all matches in the DB
   // *****************************************************************=
   matches.map(async (match) => {
-
     // Do not insert matches with more than 2 possibles results (example: soccer)
     if (match.odds.length > 2) { return }
 
@@ -52,11 +51,11 @@ const url = 'https://www.winamax.fr/paris-sportifs/calendar/4';
     } else {
       await matchModel.update(utils.buildMatchModel(match), {});
     }
-
-    await DB.sequelize.close();
-    console.log("Connection closed!");
   })
 
+  // No closing cause of the async
+  // await DB.sequelize.close();
+  console.log("Connection closed!");
 })()
 
 
