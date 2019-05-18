@@ -12,11 +12,11 @@ const utils = require('./utils');
 //       year = '2019'
 
 // Tennis - sportytrader.com
-const player1 = "Stefanos Tsitsipas",
-      player2 = "Jannik Sinner",
-      sport = "tennis",
-      source = 'sportytrader',
-      extra = '05/2019'
+// const player1 = "Stefanos Tsitsipas",
+//       player2 = "Jannik Sinner",
+//       sport = "tennis",
+//       source = 'sportytrader',
+//       extra = '05/2019'
 
 const q = `${player1} ${player2} ${sport} ${source} ${extra}`
 
@@ -47,9 +47,19 @@ let google_async = (query) => {
   await page.screenshot({path: 'screenshot.png'});
 
   // **************************************************************************
+  // matchendirect.com
+  // **************************************************************************
+  // Wait for the page to be loaded with the matches list content
+  const selector = "div#livescoreMatch div.match-detail div.status-score"
+  await page.waitForSelector(selector).then(() => console.log("Page loaded"));
+
+  span_selector = "div#livescoreMatch div.match-detail div.status-score > span"
+  const elems = await page.$$eval(span_selector, (spans) => spans.map(e => e.textContent));
+  console.log(elems);
+
+  // **************************************************************************
   // sportytrader.com
   // **************************************************************************
-
   // Wait for the page to be loaded with the matches list content
   const selector = "#header-sporting-event-tennis"
   await page.waitForSelector(selector).then(() => console.log("Page loaded"));
