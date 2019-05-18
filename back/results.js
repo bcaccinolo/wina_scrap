@@ -18,6 +18,14 @@ const utils = require('./utils');
 //       source = 'sportytrader',
 //       extra = '05/2019'
 
+// Tennis - sportytrader.com
+const player1 = "J. Sousa",
+      player2 = "R. Federer",
+      sport = "tennis",
+      source = 'sportytrader',
+      extra = '05/2019'
+
+
 const q = `${player1} ${player2} ${sport} ${source} ${extra}`
 
 // encapsulating google call
@@ -49,24 +57,26 @@ let google_async = (query) => {
   // **************************************************************************
   // matchendirect.com
   // **************************************************************************
-  // Wait for the page to be loaded with the matches list content
-  const selector = "div#livescoreMatch div.match-detail div.status-score"
-  await page.waitForSelector(selector).then(() => console.log("Page loaded"));
+  // const selector = "div#livescoreMatch div.match-detail div.status-score"
+  // await page.waitForSelector(selector).then(() => console.log("Page loaded"));
 
-  span_selector = "div#livescoreMatch div.match-detail div.status-score > span"
-  const elems = await page.$$eval(span_selector, (spans) => spans.map(e => e.textContent));
-  console.log(elems);
+  // span_selector = "div#livescoreMatch div.match-detail div.status-score > span"
+  // const elems = await page.$$eval(span_selector, (spans) => spans.map(e => e.textContent));
+  // console.log(elems);
 
   // **************************************************************************
   // sportytrader.com
   // **************************************************************************
-  // Wait for the page to be loaded with the matches list content
   const selector = "#header-sporting-event-tennis"
   await page.waitForSelector(selector).then(() => console.log("Page loaded"));
 
+  date_selector = "#sportingEventHeader > div > div.competition-match-day > div > div.league-match-day__down"
+  const date = await page.$eval(date_selector, (div) => div.textContent);
+  console.log(date.trim());
+
   score_selector = "#header-sporting-event-tennis > div.header-match-timer > div > div.score"
-  const content = await page.$eval(score_selector, (div) => div.textContent);
-  console.log(content);
+  const score = await page.$eval(score_selector, (div) => div.textContent);
+  console.log(score);
 
   await browser.close();
 })();
