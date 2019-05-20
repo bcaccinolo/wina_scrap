@@ -27,6 +27,9 @@
 - ✅highlight big deltas
 - ✅add a link to google to find the sofascore page
 
+- have a button to mark a bet as treated.
+- scrap results!
+
 - later: has_many :odds (to get the history)
 
 ## note
