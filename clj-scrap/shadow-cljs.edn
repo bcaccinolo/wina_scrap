@@ -1,0 +1,9 @@
+
+{:source-paths ["src"]
+ :dependencies [
+  [kitchen-async "0.1.0-SNAPSHOT"]
+ ]
+ :builds {:app {:target :node-script
+                :output-to "target/main.js"
+                :main server.main/main!
+                :devtools {:after-load server.main/reload!}}}}
