@@ -3,13 +3,8 @@
             ["puppeteer" :as puppeteer])
 )
 
-(def value-a 2)
-
-(defonce value-b 2)
-
 (defn reload! []
   (println "Code updated.")
-  (println "Trying values:" value-a value-b)
 
   (p/let [browser (puppeteer/launch)
           page (.newPage browser)]
