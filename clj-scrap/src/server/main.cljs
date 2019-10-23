@@ -3,26 +3,26 @@
             ["puppeteer" :as puppeteer])
 )
 
-(defn reload! []
-  (println "Code updated.")
+; (def url "https://lemonde.fr")
+(def url "https://linuxfr.org")
+
+(defn scrap []
 
   (p/let [browser (puppeteer/launch)
-          page (.newPage browser)]
-    (.goto page "https://lemonde.fr")
+  page (.newPage browser)]
+    (.goto page url)
     (.screenshot page #js{:path "screenshot2.png"})
     (.close browser))
+  )
 
+(defn reload! []
+  (println "Code updated.")
+  (scrap)
   (println "Done!")
 )
 
 (defn main! []
   (println "App loaded!")
-
-  (p/let [browser (puppeteer/launch)
-          page (.newPage browser)]
-    (.goto page "https://www.google.com")
-    (.screenshot page #js{:path "screenshot.png"})
-    (.close browser))
-
+  (scrap)
   (println "Done!")
 )
