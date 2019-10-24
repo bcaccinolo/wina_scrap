@@ -4,3 +4,4 @@ target/
 /yarn.lock
 .shadow-cljs/
 .nrepl-port
+screenshot*.png

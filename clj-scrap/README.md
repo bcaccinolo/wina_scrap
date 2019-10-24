@@ -1,4 +1,10 @@
 
+## Todo
+
+- ✅ il faudrait mettre le code dans une fonction pour voir ce qui se passe mais je ne suis pas sur que ce soit une bonne idée en fait.
+
+-
+
 Node.js example for [shadow-cljs](https://github.com/thheller/shadow-cljs)
 ----
 
